@@ -1,4 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
+import { Box, IconButton, List, OutlinedInput, InputAdornment, Alert } from "@mui/material";
+import { List as ListIcon, Add as AddIcon } from "@mui/icons-material";
 import Item from "./Item";
 
 const api = "http://localhost:8181/todoList";
@@ -28,38 +30,48 @@ export default function App(){
   }, [])
 
   return (
-	<div>
+	<Box>
 		<h1>TODO-LIST</h1>
 		<hr/>
-		<form onSubmit={e => {
-			e.preventDefault();
-			const name = inputRef.current.value;
-			if(!name){
-				return false;
-			}
-		}}>
-			<input type="text" ref={inputRef} />
-			<input type="submit" />
-		</form>
-		<ul>
-			{data.filter(item => !item.done).map(item => {
-				return (
-					<Item 
-						key={item._id}
-						item={item} />
-				)
-			})}
-		</ul>
-		<hr/>
-		<ul>
-			{data.filter(item => item.done).map(item => {
-				return (
-					<Item 
-						key={item._id}
-						item={item}/>
-				)
-			})}
-		</ul>
-	</div>
+		<Box sx={{ mx: "auto", maxWidth: "md", mt: 4}}>
+			<form onSubmit={e => {
+				e.preventDefault();
+				const name = inputRef.current.value;
+				if(!name){
+					return false;
+				}
+			}}>
+				<OutlinedInput 
+					fullWidth
+					inputRef={inputRef}
+					endAdornment={
+						<InputAdornment>
+							<IconButton type="submit">
+								<AddIcon />
+							</IconButton>
+						</InputAdornment>
+					}/>
+			</form>
+			<List>
+				{data.filter(item => !item.done).map(item => {
+					return (
+						<Item 
+							key={item._id}
+							item={item} />
+					)
+				})}
+			</List>
+			<hr/>
+			<List>
+				{data.filter(item => item.done).map(item => {
+					return (
+						<Item 
+							key={item._id}
+							item={item}/>
+					)
+				})}
+			</List>
+		</Box>
+	</Box>
   );
 }
