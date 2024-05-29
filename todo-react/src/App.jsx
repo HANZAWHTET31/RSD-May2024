@@ -56,10 +56,13 @@ export default function App() {
 		<Box>
 			<h1>TODO-LIST</h1>
 			<hr />
-			{isLoading && (
-				<Box sx={{ m: 2, textAlign: "center"}}>Loading.....</Box>
-			)}
 			<Box sx={{ mx: "auto", maxWidth: "md", mt: 4 }}>
+				{isLoading && (
+					<Box sx={{ m: 2, textAlign: "center"}}>Loading.....</Box>
+				)}
+				{hasError && (
+					<Alert severity="error" sx={{m: 2, textAlign: "center"}}>Something Went Wrong!</Alert>
+				)}
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
